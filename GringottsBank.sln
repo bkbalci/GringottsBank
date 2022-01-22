@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GringottsBank.API", "GringottsBank.API\GringottsBank.API.csproj", "{40FCACDC-B408-4FD8-A34E-42DD9B0591BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GringottsBank.Core", "GringottsBank.Core\GringottsBank.Core.csproj", "{24A04515-ED44-4063-A447-03C37BC681A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GringottsBank.BLL", "GringottsBank.BLL\GringottsBank.BLL.csproj", "{3F6E0CFD-B54B-4380-9A31-2265C7F1EAC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GringottsBank.DAL", "GringottsBank.DAL\GringottsBank.DAL.csproj", "{A8375ACB-F570-4947-9DA4-771DB0027CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GringottsBank.Entities", "GringottsBank.Entities\GringottsBank.Entities.csproj", "{B762E0FB-7414-4C7F-A524-856BD55A7043}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40FCACDC-B408-4FD8-A34E-42DD9B0591BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FCACDC-B408-4FD8-A34E-42DD9B0591BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FCACDC-B408-4FD8-A34E-42DD9B0591BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FCACDC-B408-4FD8-A34E-42DD9B0591BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A04515-ED44-4063-A447-03C37BC681A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A04515-ED44-4063-A447-03C37BC681A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A04515-ED44-4063-A447-03C37BC681A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A04515-ED44-4063-A447-03C37BC681A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F6E0CFD-B54B-4380-9A31-2265C7F1EAC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F6E0CFD-B54B-4380-9A31-2265C7F1EAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F6E0CFD-B54B-4380-9A31-2265C7F1EAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F6E0CFD-B54B-4380-9A31-2265C7F1EAC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8375ACB-F570-4947-9DA4-771DB0027CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8375ACB-F570-4947-9DA4-771DB0027CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8375ACB-F570-4947-9DA4-771DB0027CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8375ACB-F570-4947-9DA4-771DB0027CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B762E0FB-7414-4C7F-A524-856BD55A7043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B762E0FB-7414-4C7F-A524-856BD55A7043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B762E0FB-7414-4C7F-A524-856BD55A7043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B762E0FB-7414-4C7F-A524-856BD55A7043}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {769E2B0B-2ADF-4AC0-835C-7BDD09A25C33}
+	EndGlobalSection
+EndGlobal
