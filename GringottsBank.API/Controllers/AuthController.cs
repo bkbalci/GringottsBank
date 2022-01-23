@@ -35,6 +35,7 @@ namespace GringottsBank.API.Controllers
             {
                 var authClaims = new[]
                 {
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };

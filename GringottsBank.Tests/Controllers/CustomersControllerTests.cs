@@ -2,7 +2,9 @@
 using GringottsBank.BLL.Abstract;
 using GringottsBank.Entities.DTO.Customer;
 using GringottsBank.Entities.DTO.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,18 @@ namespace GringottsBank.Tests.Controllers
     public class CustomersControllerTests
     {
         private readonly Mock<ICustomerService> _mockCustomerService;
+        private readonly Mock<ILogger<CustomersController>> _mockLogger;
+        private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
         private readonly CustomersController _controller;
         Random rand;
 
         public CustomersControllerTests()
         {
             _mockCustomerService = new Mock<ICustomerService>();
-            _controller = new CustomersController(_mockCustomerService.Object);
+            _mockLogger = new Mock<ILogger<CustomersController>>();
+            _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            _mockHttpContextAccessor.Setup(_ => _.HttpContext.User.Identity.Name).Returns("test");
+            _controller = new CustomersController(_mockCustomerService.Object, _mockLogger.Object, _mockHttpContextAccessor.Object);
             rand = new Random();
         }
 

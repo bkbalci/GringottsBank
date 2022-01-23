@@ -2,7 +2,9 @@
 using GringottsBank.BLL.Abstract;
 using GringottsBank.Entities.DTO.Shared;
 using GringottsBank.Entities.DTO.Transaction;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,18 @@ namespace GringottsBank.Tests.Controllers
     public class TransactionsControllerTests
     {
         private readonly Mock<ITransactionService> _mockTransactionService;
+        private readonly Mock<ILogger<TransactionsController>> _mockLogger;
+        private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
         private readonly TransactionsController _controller;
         Random rand;
 
         public TransactionsControllerTests()
         {
             _mockTransactionService = new Mock<ITransactionService>();
-            _controller = new TransactionsController(_mockTransactionService.Object);
+            _mockLogger = new Mock<ILogger<TransactionsController>>();
+            _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            _mockHttpContextAccessor.Setup(_ => _.HttpContext.User.Identity.Name).Returns("test");
+            _controller = new TransactionsController(_mockTransactionService.Object, _mockLogger.Object, _mockHttpContextAccessor.Object);
             rand = new Random();
         }
 

@@ -2,11 +2,14 @@
 using GringottsBank.BLL.Abstract;
 using GringottsBank.Entities.DTO.Account;
 using GringottsBank.Entities.DTO.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -16,13 +19,18 @@ namespace GringottsBank.Tests.Controllers
     public class AccountsControllerTests
     {
         private readonly Mock<IAccountService> _mockAccountService;
+        private readonly Mock<ILogger<AccountsController>> _mockLogger;
+        private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
         private readonly AccountsController _controller;
         Random rand;
 
         public AccountsControllerTests()
         {
             _mockAccountService = new Mock<IAccountService>();
-            _controller = new AccountsController(_mockAccountService.Object);
+            _mockLogger = new Mock<ILogger<AccountsController>>();
+            _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            _mockHttpContextAccessor.Setup(_ => _.HttpContext.User.Identity.Name).Returns("test");
+            _controller = new AccountsController(_mockAccountService.Object, _mockLogger.Object, _mockHttpContextAccessor.Object);
             rand = new Random();
         }
 
