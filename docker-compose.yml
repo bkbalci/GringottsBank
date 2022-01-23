@@ -1,0 +1,18 @@
+version: '3.4'
+
+networks:
+  gringottsnetwork:
+    driver: bridge
+
+services:
+  gringottsbank.api:
+    image: ${DOCKER_REGISTRY-}gringottsbankapi
+    build:
+      context: .
+      dockerfile: GringottsBank.API/Dockerfile
+
+  gringottsdb:
+    image: postgres:latest
+
+volumes:
+  db_volume:

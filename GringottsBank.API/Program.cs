@@ -1,3 +1,4 @@
+using GringottsBank.DAL.Abstract;
 using GringottsBank.DAL.PostgreSQL.Contexts;
 using GringottsBank.DAL.PostgreSQL.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,17 @@ namespace GringottsBank.API
                     var appDbContext = services.GetRequiredService<BankContext>();
                     appDbContext.Database.Migrate();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var customerRepository = services.GetRequiredService<ICustomerRepository>();
+                    var accountRepository = services.GetRequiredService<IAccountRepository>();
                     if (!userManager.Users.Any())
                     {
                         userManager.CreateAsync(new ApplicationUser { UserName = "apiuser", Email = "apiuser@gringotts.com" }, "Password12*").Wait();
+                        customerRepository.AddAsync(new Entities.Concrete.Customer { Id = 1, IdentityNumber = "123", FirstName = "Burak Koray", LastName = "Balci", CreatedDate = DateTime.Now }).Wait();
+                        customerRepository.AddAsync(new Entities.Concrete.Customer { Id = 2, IdentityNumber = "124", FirstName = "Test", LastName = "Customer", CreatedDate = DateTime.Now }).Wait();
+                        accountRepository.AddAsync(new Entities.Concrete.Account { Id = 1, CustomerId = 1, Name = "BKB", Balance = 0, CreatedDate = DateTime.Now }).Wait();
+                        accountRepository.AddAsync(new Entities.Concrete.Account { Id = 2, CustomerId = 1, Name = "BKB 2", Balance = 0, CreatedDate = DateTime.Now }).Wait();
+                        accountRepository.AddAsync(new Entities.Concrete.Account { Id = 3, CustomerId = 2, Name = "TEST", Balance = 0, CreatedDate = DateTime.Now }).Wait();
+
                     }
                 }
                 logger.Info("API started");

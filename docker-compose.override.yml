@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  gringottsbank.api:
+    environment:
+      - ConnectionStrings__Default=User ID=admin;Password=Password12*;Server=gringottsdb;Port=5432;Database=gringottsdb;Integrated Security=true;Pooling=true;
+    ports:
+      - "8080:80"
+      - "8081:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - "gringottsdb"
+    networks:
+      - gringottsnetwork
+
+  gringottsdb:
+    ports:
+      - "5453:5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "Password12*"
+      POSTGRES_DB: "gringottsdb"
+    networks:
+      - gringottsnetwork

@@ -87,12 +87,12 @@ namespace GringottsBank.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GringottsBank.API v1"));
+                app.UseHttpsRedirection();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GringottsBank.API v1"));
 
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
