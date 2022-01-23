@@ -1,9 +1,11 @@
 ﻿using GringottsBank.BLL.Abstract;
+using GringottsBank.Entities.DTO.Shared;
 using GringottsBank.Entities.DTO.Transaction;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@ namespace GringottsBank.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class TransactionsController : CustomControllerBase
     {
         private readonly ITransactionService _transactionService;
@@ -25,6 +28,22 @@ namespace GringottsBank.API.Controllers
             userName = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
+        /// <summary>
+        /// Get transaction list of a customer.
+        /// </summary>
+        /// <returns>Transaction list</returns>
+        /// <remarks>
+        /// 
+        /// Get transaction list from bank by customer id and date range.
+        /// 
+        /// 
+        /// </remarks>
+        /// <response code="200">Returns transaction list</response>
+        /// <response code="404">Customer doesn't exists</response>
+        /// <response code="500">There is an error in the system</response>
+        [ProducesResponseType(typeof(ApiResponse<List<TransactionDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<List<TransactionDto>>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status500InternalServerError)]
         [HttpGet("GetByCustomer")]
         public async Task<IActionResult> GetListByCustomerAsync([FromQuery] TransactionByCustomerDto request)
         {
@@ -33,6 +52,22 @@ namespace GringottsBank.API.Controllers
             return CreateActionResult(apiResponse);
         }
 
+        /// <summary>
+        /// Get transaction list of an account.
+        /// </summary>
+        /// <returns>Transaction list</returns>
+        /// <remarks>
+        /// 
+        /// Get transaction list from bank by account id.
+        /// 
+        /// 
+        /// </remarks>
+        /// <response code="200">Returns transaction list</response>
+        /// <response code="404">Account doesn't exists</response>
+        /// <response code="500">There is an error in the system</response>
+        [ProducesResponseType(typeof(ApiResponse<List<TransactionDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<List<TransactionDto>>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status500InternalServerError)]
         [HttpGet("GetByAccountId/{accountId}")]
         public async Task<IActionResult> GetListByAccountIdAsync(int accountId)
         {
@@ -42,6 +77,23 @@ namespace GringottsBank.API.Controllers
         }
 
 
+        /// <summary>
+        /// Deposit money to an account.
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <remarks>
+        /// 
+        /// Deposit money to an account.
+        /// 
+        /// </remarks>
+        /// <response code="200">Succesful</response>
+        /// <response code="400">There is an error in the request</response>
+        /// <response code="404">Account doesn't exists</response>
+        /// <response code="500">There is an error in the system</response>
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status500InternalServerError)]
         [HttpPost("Deposit")]
         public async Task<IActionResult> DepositAsync([FromBody] TransactionSaveDto transactionSaveDto)
         {
@@ -50,6 +102,23 @@ namespace GringottsBank.API.Controllers
             return CreateActionResult(apiResponse);
         }
 
+        /// <summary>
+        /// Withdraw money from an account.
+        /// </summary>
+        /// <returns>Status code</returns>
+        /// <remarks>
+        /// 
+        /// Withdraw money from an account.
+        /// 
+        /// </remarks>
+        /// <response code="200">Succesful</response>
+        /// <response code="400">There is an error in the request</response>
+        /// <response code="404">Account doesn't exists</response>
+        /// <response code="500">There is an error in the system</response>
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<NoContent>), StatusCodes.Status500InternalServerError)]
         [HttpPost("Withdraw")]
         public async Task<IActionResult> WithdrawAsync([FromBody] TransactionSaveDto transactionSaveDto)
         {
