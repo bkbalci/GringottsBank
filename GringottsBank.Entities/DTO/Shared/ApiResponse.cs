@@ -9,7 +9,6 @@ namespace GringottsBank.Entities.DTO.Shared
 {
     public class ApiResponse<T>
     {
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public T Data { get; private set; }
         [JsonIgnore]
         public int StatusCode { get; private set; }
