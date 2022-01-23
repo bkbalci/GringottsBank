@@ -20,4 +20,4 @@ RUN dotnet publish "GringottsBank.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "GringottsBank.API.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet GringottsBank.API.dll

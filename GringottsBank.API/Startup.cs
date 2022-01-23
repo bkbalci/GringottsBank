@@ -46,7 +46,25 @@ namespace GringottsBank.API
 
             services.BindDependencies();
             services.AddAutoMapper(typeof(GeneralMapping));
-            services.AddDbContext<BankContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Default"), o => o.MigrationsAssembly("GringottsBank.API"))
+            string cnnStr = Configuration.GetConnectionString("Default");
+            string herokuCnnStr = Environment.GetEnvironmentVariable("DATABASE_URL");
+            if (!string.IsNullOrEmpty(herokuCnnStr))
+            {
+                herokuCnnStr = herokuCnnStr.Replace("postgres://", string.Empty);
+
+                var pgUserPass = herokuCnnStr.Split("@")[0];
+                var pgHostPortDb = herokuCnnStr.Split("@")[1];
+                var pgHostPort = pgHostPortDb.Split("/")[0];
+
+                var pgDb = pgHostPortDb.Split("/")[1];
+                var pgUser = pgUserPass.Split(":")[0];
+                var pgPass = pgUserPass.Split(":")[1];
+                var pgHost = pgHostPort.Split(":")[0];
+                var pgPort = pgHostPort.Split(":")[1];
+
+                cnnStr = $"User ID={pgUser};Password={pgPass};Server={pgHost};Port={pgPort};Database={pgDb};Integrated Security=true;Pooling=true;SSL Mode=Require;Trust Server Certificate=true;";
+            }
+            services.AddDbContext<BankContext>(opt => opt.UseNpgsql(cnnStr, o => o.MigrationsAssembly("GringottsBank.API"))
                                                          .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), ServiceLifetime.Transient);
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<BankContext>()
