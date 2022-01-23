@@ -20,14 +20,14 @@ namespace GringottsBank.API.Controllers
         }
 
         [HttpGet("GetByCustomer")]
-        public async Task<IActionResult> GetListByCustomerIdAsync([FromQuery] TransactionByCustomerDto request)
+        public async Task<IActionResult> GetListByCustomerAsync([FromQuery] TransactionByCustomerDto request)
         {
             var apiResponse = await _transactionService.GetListByCustomerAsync(request.CustomerId, request.StartDate, request.EndDate);
             return CreateActionResult(apiResponse);
         }
 
         [HttpGet("GetByAccountId/{accountId}")]
-        public async Task<IActionResult> GetListByCustomerIdAsync(int accountId)
+        public async Task<IActionResult> GetListByAccountIdAsync(int accountId)
         {
             var apiResponse = await _transactionService.GetListByAccountIdAsync(accountId);
             return CreateActionResult(apiResponse);
@@ -35,14 +35,14 @@ namespace GringottsBank.API.Controllers
 
 
         [HttpPost("Deposit")]
-        public async Task<IActionResult> Deposit([FromBody] TransactionSaveDto transactionSaveDto)
+        public async Task<IActionResult> DepositAsync([FromBody] TransactionSaveDto transactionSaveDto)
         {
             var apiResponse = await _transactionService.SaveAsync(transactionSaveDto);
             return CreateActionResult(apiResponse);
         }
 
         [HttpPost("Withdraw")]
-        public async Task<IActionResult> Withdraw([FromBody] TransactionSaveDto transactionSaveDto)
+        public async Task<IActionResult> WithdrawAsync([FromBody] TransactionSaveDto transactionSaveDto)
         {
             transactionSaveDto.Amount = -1 * transactionSaveDto.Amount;
             var apiResponse = await _transactionService.SaveAsync(transactionSaveDto);

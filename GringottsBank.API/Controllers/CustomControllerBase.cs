@@ -9,7 +9,7 @@ namespace GringottsBank.API.Controllers
         {
             return new ObjectResult(response)
             {
-                StatusCode = response.StatusCode,
+                StatusCode = response != null ? response.StatusCode : 404,
             };
         }
     }
