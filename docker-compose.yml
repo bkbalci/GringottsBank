@@ -9,7 +9,7 @@ services:
     image: ${DOCKER_REGISTRY-}gringottsbankapi
     build:
       context: .
-      dockerfile: GringottsBank.API/Dockerfile
+      dockerfile: Dockerfile
 
   gringottsdb:
     image: postgres:latest
