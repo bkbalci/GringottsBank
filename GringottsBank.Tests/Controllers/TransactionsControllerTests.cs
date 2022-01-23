@@ -84,14 +84,14 @@ namespace GringottsBank.Tests.Controllers
         {
             _mockTransactionService.Setup(x => x.SaveAsync(It.IsAny<TransactionSaveDto>()))
                 .ReturnsAsync(ApiResponse<NoContent>.Success(200));
-            var response = (ObjectResult)await _controller.Deposit(new TransactionSaveDto());
+            var response = (ObjectResult)await _controller.DepositAsync(new TransactionSaveDto());
             Assert.Equal(200, response.StatusCode);
         }
         [Fact]
         public async Task Deposit_ReturnsNotFound()
         {
             _mockTransactionService.Setup(x => x.SaveAsync(It.IsAny<TransactionSaveDto>()));
-            var response = (ObjectResult)await _controller.Deposit(new TransactionSaveDto());
+            var response = (ObjectResult)await _controller.DepositAsync(new TransactionSaveDto());
             Assert.Equal(404, response.StatusCode);
         }
 
@@ -100,7 +100,7 @@ namespace GringottsBank.Tests.Controllers
         {
             _mockTransactionService.Setup(x => x.SaveAsync(It.IsAny<TransactionSaveDto>()))
                 .ReturnsAsync(ApiResponse<NoContent>.Success(200));
-            var response = (ObjectResult)await _controller.Withdraw(new TransactionSaveDto());
+            var response = (ObjectResult)await _controller.WithdrawAsync(new TransactionSaveDto());
             Assert.Equal(200, response.StatusCode);
         }
 
@@ -108,7 +108,7 @@ namespace GringottsBank.Tests.Controllers
         public async Task Withdraw_ReturnsNotFound()
         {
             _mockTransactionService.Setup(x => x.SaveAsync(It.IsAny<TransactionSaveDto>()));
-            var response = (ObjectResult)await _controller.Withdraw(new TransactionSaveDto());
+            var response = (ObjectResult)await _controller.WithdrawAsync(new TransactionSaveDto());
             Assert.Equal(404, response.StatusCode);
         }
 
